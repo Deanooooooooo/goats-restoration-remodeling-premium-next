@@ -13,14 +13,14 @@ export const metadata: Metadata = {
     description:
       "Waterbury roofing, remodeling and restoration services with direct estimates and real customer proof.",
     url: "https://deanooooooooo.github.io/goats-restoration-remodeling-premium-next/",
-    images: ["/assets/work-03.jpg"],
+    images: ["/assets/hero-roof-remodel-highres.webp"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Goats Restoration & Remodeling | Waterbury CT",
     description:
       "Roofing, remodeling and restoration services in Waterbury and across Connecticut.",
-    images: ["/assets/work-03.jpg"],
+    images: ["/assets/hero-roof-remodel-highres.webp"],
   },
 };
 

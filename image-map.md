@@ -16,6 +16,8 @@
   - Public snippet confirms Goats Restoration & Remodeling and family-owned roofing/home improvement positioning.
 - Google Maps place provided by Dean:
   - `Goats Restoration and Remodeling LLC`, Waterbury, CT, place coordinates `41.5353838,-73.0351587`.
+- Official website: `https://goatsrestoration.org/`
+  - Verified contact email: `goatsrestorationllc@outlook.com`.
 - BBB profile:
   - Confirms address `38 Middle Street, Waterbury, CT 06706-2021`, phone `(917) 891-5218`, and services including bathroom remodeling, construction, home renovation, kitchen remodeling, roofing, tile installation/replacement.
 - Thumbtack profile/search snippets:
@@ -40,6 +42,7 @@ Reason:
 | `work-04.jpg` | Facebook photo OG image | Overhead view of large gray roof | landscape, 306x172 | Useful for variety; low-res, compact card only | real work | Gallery/contact strip |
 | `work-05.jpg` | Facebook photo OG image | Front view of completed roof on raised ranch | landscape, 306x172 | Good whole-home context; compact card only | real work | Gallery |
 | `work-01.jpg` | Facebook photo OG image | Aerial view of house with finished dark roof | landscape, 306x172 | Useful supporting roof proof; compact card only | real work | Gallery |
+| `hero-roof-remodel-highres.webp` | Generated hero background | Premium Connecticut-style home exterior with finished dark shingle roof | landscape, 2400x1350 | High-res atmospheric hero background only; not presented as Goats project proof | generated background | Hero background |
 
 ## Rejected / Isolated
 
@@ -49,6 +52,7 @@ Reason:
 
 ## Placement Notes
 
-- The hero and gallery use only Goats project images and logo.
+- The hero uses a generated high-resolution contractor background because the Facebook roof images are too low-resolution for a full-viewport hero.
+- The gallery uses Goats project images and logo only.
 - Low-resolution roof photos are intentionally used in compact frames and dark overlays so they do not look stretched.
 - Testimonial cards use public review snippets only; no review count is shown.

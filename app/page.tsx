@@ -35,6 +35,7 @@ const assets = (name: string) => `${basePath}/assets/${name}`;
 const business = "Goats Restoration and Remodeling LLC";
 const phone = "(917) 891-5218";
 const phoneHref = "tel:+19178915218";
+const emailAddress = "goatsrestorationllc@outlook.com";
 const address = "38 Middle Street, Waterbury, CT 06706";
 const mapsQuery = encodeURIComponent(`${business} ${address}`);
 const mapEmbedQuery = encodeURIComponent(`${business}, 38 Middle Street, Waterbury, CT 06706`);
@@ -97,14 +98,14 @@ const proofPoints = [
   "Waterbury based, serving homeowners across Connecticut.",
   "Roofing, remodeling, restoration, kitchen, bathroom and tile work.",
   "Direct estimate line for roofing, siding, decks, additions and remodels.",
-  "Roof photos and customer comments point to responsive, tidy work.",
+  "Customer comments point to responsive, tidy work.",
 ];
 
 const faqs = [
   ["Do you handle more than roofing?", "Yes. Public profiles list roofing, restoration, kitchen remodeling, bathroom remodeling, tile work, siding, decks and additions."],
   ["Where is Goats Restoration based?", "The business is listed at 38 Middle Street in Waterbury, Connecticut."],
-  ["What is the fastest way to ask for an estimate?", `Call ${phone}. Share the property address, the problem, photos if available and the type of work you need.`],
-  ["Can I send photos first?", "Yes. Photos help show roof condition, exterior access, room layout, tile work, siding, deck areas and repair scope."],
+  ["What is the fastest way to ask for an estimate?", `Use the enquiry form or call ${phone}. Include the property address, project type and what needs work.`],
+  ["Can I ask about interior and exterior work?", "Yes. Goats handles roofing, restoration, remodeling, tile, siding, decks and additions."],
 ];
 
 const projectModes = [
@@ -113,7 +114,7 @@ const projectModes = [
     label: "Roof",
     icon: Home,
     headline: "Roof replacement or repair?",
-    points: ["leak or age", "storm or snow damage", "full replacement", "photos from outside"],
+    points: ["leak or age", "storm or snow damage", "full replacement", "roof access"],
     subject: "Roofing estimate",
   },
   {
@@ -129,7 +130,7 @@ const projectModes = [
     label: "Exterior",
     icon: Building2,
     headline: "Siding, deck or addition?",
-    points: ["property address", "access notes", "repair or build", "photos"],
+    points: ["property address", "access notes", "repair or build", "timing"],
     subject: "Exterior project estimate",
   },
   {
@@ -158,14 +159,44 @@ function Reveal({ children, className = "", delay = 0 }: { children: React.React
 
 function EstimateForm() {
   const [jobType, setJobType] = useState("Roof replacement");
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
   const [area, setArea] = useState("");
   const [details, setDetails] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const sendEnquiry = () => {
+    const body = encodeURIComponent(
+      [
+        `Name: ${name || "[name]"}`,
+        `Contact: ${contact || "[phone or email]"}`,
+        `Project type: ${jobType}`,
+        `Town / address: ${area || "[property town or address]"}`,
+        "",
+        "Project details:",
+        details || "[roofing, remodeling, restoration or repair details]",
+      ].join("\n"),
+    );
+    const subject = encodeURIComponent(`${jobType} enquiry`);
+    setSent(true);
+    window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+  };
 
   return (
-    <form className="rounded-3xl border border-white/10 bg-white/[0.075] p-7 text-white backdrop-blur-2xl lg:p-9" onSubmit={(event) => event.preventDefault()}>
-      <p className="mb-3 text-xs font-black uppercase text-amber-300">Estimate details</p>
-      <h2 className="text-4xl font-black leading-none">Call with the address, photos and job type.</h2>
+    <form id="hero-enquiry" className="rounded-3xl border border-white/10 bg-white/[0.075] p-7 text-white backdrop-blur-2xl lg:p-9" onSubmit={(event) => { event.preventDefault(); sendEnquiry(); }}>
+      <p className="mb-3 text-xs font-black uppercase text-amber-300">Estimate request</p>
+      <h2 className="text-4xl font-black leading-none">Tell us what needs work.</h2>
       <div className="mt-8 grid gap-4 text-sm font-bold text-white/72">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="grid gap-2">
+            <span>Name</span>
+            <input value={name} onChange={(event) => setName(event.target.value)} placeholder="Your name" className="min-h-12 rounded-xl border border-white/10 bg-black/30 px-4 text-white outline-none placeholder:text-white/35 focus:border-amber-300" />
+          </label>
+          <label className="grid gap-2">
+            <span>Phone or email</span>
+            <input value={contact} onChange={(event) => setContact(event.target.value)} placeholder="Best contact" className="min-h-12 rounded-xl border border-white/10 bg-black/30 px-4 text-white outline-none placeholder:text-white/35 focus:border-amber-300" />
+          </label>
+        </div>
         <label className="grid gap-2">
           <span>Project type</span>
           <select value={jobType} onChange={(event) => setJobType(event.target.value)} className="min-h-12 rounded-xl border border-white/10 bg-black/30 px-4 text-white outline-none focus:border-amber-300">
@@ -181,15 +212,15 @@ function EstimateForm() {
           <input value={area} onChange={(event) => setArea(event.target.value)} placeholder="Waterbury / nearby" className="min-h-12 rounded-xl border border-white/10 bg-black/30 px-4 text-white outline-none placeholder:text-white/35 focus:border-amber-300" />
         </label>
         <label className="grid gap-2">
-          <span>What needs looking at?</span>
-          <textarea value={details} onChange={(event) => setDetails(event.target.value)} placeholder="Roof age, leak, storm damage, room work, photos available..." className="min-h-28 rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-amber-300" />
+          <span>Project details</span>
+          <textarea value={details} onChange={(event) => setDetails(event.target.value)} placeholder="Roof leak, storm damage, room remodel, siding, deck, tile work, timing..." className="min-h-28 rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 focus:border-amber-300" />
         </label>
       </div>
       <div className="mt-7 flex flex-wrap gap-3">
-        <a href={phoneHref}><Button asChild variant="brass" className="rounded-xl"><span><Phone size={18} />Call now</span></Button></a>
-        <a href={facebookUrl}><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><Facebook size={18} />Send photos</span></Button></a>
+        <Button type="submit" variant="brass" className="min-h-12 rounded-xl px-5"><Mail size={18} />{sent ? "Opening email" : "Send enquiry"}</Button>
+        <a href={phoneHref}><Button asChild variant="secondary" className="min-h-12 rounded-xl border-white/15 bg-white/10 px-5 text-white hover:bg-white/16"><span><Phone size={18} />Call instead</span></Button></a>
       </div>
-      <p className="mt-4 text-xs leading-6 text-white/45">Have the project type, town, photos and rough timing ready before calling.</p>
+      <p className="mt-4 text-xs leading-6 text-white/45">The form opens a ready-made email to Goats Restoration with your project details.</p>
     </form>
   );
 }
@@ -240,7 +271,7 @@ function ProjectSelector() {
       <Reveal>
         <p className="mb-3 text-xs font-black uppercase text-amber-300">Choose the work</p>
         <h2 className="text-4xl font-black leading-none sm:text-6xl">Get the right details into the first call.</h2>
-        <p className="mt-5 text-base leading-8 text-white/62">Pick the closest job type, then call or email with the details that help price the work cleanly.</p>
+        <p className="mt-5 text-base leading-8 text-white/62">Pick the closest job type, then send the enquiry or call with the details that help price the work cleanly.</p>
       </Reveal>
       <Reveal className="rounded-2xl border border-white/10 bg-black/32 p-4">
         <div className="grid gap-2 sm:grid-cols-4">
@@ -276,7 +307,7 @@ function ProjectSelector() {
           </div>
           <div className="mt-7 flex flex-wrap gap-3">
             <a href={phoneHref}><Button asChild variant="brass" className="rounded-xl"><span><Phone size={18} />Call now</span></Button></a>
-            <a href={facebookUrl}><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><ArrowUpRight size={18} />Open Facebook</span></Button></a>
+            <a href={`mailto:${emailAddress}?subject=${encodeURIComponent(active.subject)}`}><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><Mail size={18} />Email details</span></Button></a>
           </div>
         </div>
       </Reveal>
@@ -335,6 +366,7 @@ export default function Page() {
     name: business,
     image: assets("logo.jpg"),
     telephone: "+19178915218",
+    email: emailAddress,
     address: {
       "@type": "PostalAddress",
       streetAddress: "38 Middle Street",
@@ -383,8 +415,8 @@ export default function Page() {
       </header>
 
       <section id="top" className="relative min-h-screen overflow-hidden px-4 pb-20 pt-28 sm:px-8">
-        <Image src={assets("work-03.jpg")} alt="" fill priority sizes="100vw" className="object-cover opacity-22" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_22%,rgba(211,159,74,0.24),transparent_34%),linear-gradient(180deg,rgba(7,9,11,0.22),#07090b_90%)]" />
+        <Image src={assets("hero-roof-remodel-highres.webp")} alt="" fill priority sizes="100vw" className="object-cover opacity-36" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_22%,rgba(211,159,74,0.22),transparent_34%),linear-gradient(90deg,rgba(7,9,11,0.93)_0%,rgba(7,9,11,0.72)_44%,rgba(7,9,11,0.22)_100%),linear-gradient(180deg,rgba(7,9,11,0.18),#07090b_94%)]" />
         <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_0.88fr]">
           <motion.div style={{ y: heroY }} className="max-w-4xl">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-xs font-black uppercase text-amber-200 backdrop-blur-xl">
@@ -396,7 +428,7 @@ export default function Page() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href={phoneHref}><Button asChild variant="brass" className="rounded-xl"><span><Phone size={19} />Call {phone}</span></Button></a>
-              <a href="#estimate"><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><ArrowUpRight size={19} />Request estimate</span></Button></a>
+              <a href="#hero-enquiry"><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><ArrowUpRight size={19} />Request estimate</span></Button></a>
             </div>
           </motion.div>
           <motion.aside
@@ -473,7 +505,7 @@ export default function Page() {
           <Reveal>
             <p className="mb-3 text-xs font-black uppercase text-amber-300">Roof work</p>
             <h2 className="max-w-4xl text-4xl font-black leading-none sm:text-6xl">Roof work that shows the finished exterior clearly.</h2>
-            <p className="mt-5 max-w-3xl text-base leading-8 text-white/60">Aerial project photos show roof shape, shingle finish and the full home context before the estimate call.</p>
+            <p className="mt-5 max-w-3xl text-base leading-8 text-white/60">Project views show roof shape, shingle finish and the full home context before the estimate call.</p>
           </Reveal>
         </div>
         <div className="gallery-track mt-12 flex w-[106rem] gap-4 px-4 sm:px-8">
@@ -520,10 +552,13 @@ export default function Page() {
           <Card className="rounded-3xl border-white/10 bg-white/[0.075] text-white backdrop-blur-2xl">
             <CardContent className="p-7 lg:p-9">
               <p className="mb-3 text-xs font-black uppercase text-amber-300">Contact</p>
-              <h2 className="text-4xl font-black leading-none">Call, send photos, or check the Waterbury location.</h2>
+              <h2 className="text-4xl font-black leading-none">Call, email, or check the Waterbury location.</h2>
               <div className="mt-8 grid gap-4 text-sm font-bold text-white/68">
                 <a className="flex gap-3 rounded-xl border border-white/10 bg-black/24 p-4 transition hover:border-amber-300/40" href={phoneHref}>
                   <Phone className="shrink-0 text-amber-300" size={19} /> {phone}
+                </a>
+                <a className="flex gap-3 rounded-xl border border-white/10 bg-black/24 p-4 transition hover:border-amber-300/40" href={`mailto:${emailAddress}`}>
+                  <Mail className="shrink-0 text-amber-300" size={19} /> {emailAddress}
                 </a>
                 <a className="flex gap-3 rounded-xl border border-white/10 bg-black/24 p-4 transition hover:border-amber-300/40" href={facebookUrl}>
                   <Facebook className="shrink-0 text-amber-300" size={19} /> Facebook profile
@@ -534,7 +569,7 @@ export default function Page() {
               </div>
               <div className="mt-7 flex flex-wrap gap-3">
                 <a href={phoneHref}><Button asChild variant="brass" className="rounded-xl"><span><Phone size={18} />Call now</span></Button></a>
-                <a href={facebookUrl}><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><Facebook size={18} />Send photos</span></Button></a>
+                <a href={`mailto:${emailAddress}`}><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><Mail size={18} />Email Goats</span></Button></a>
               </div>
             </CardContent>
           </Card>
