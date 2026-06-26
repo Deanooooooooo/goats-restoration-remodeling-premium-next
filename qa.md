@@ -54,7 +54,7 @@
 ## Screenshot QA
 
 - PASS: Desktop screenshot: `qa-desktop-v2.png`.
-- PASS: Mobile screenshot: `qa-mobile-v2.png`.
+- PASS: Mobile screenshot after counter fix: `qa-mobile-v3.png`.
 - PASS: Interaction screenshot: `qa-interaction-v2.png`.
 - PASS: Map screenshot: `qa-map-v2.png`.
 - PASS: Footer screenshot: `qa-footer-v2.png`.
@@ -66,3 +66,8 @@
 - NOTE: npm reported 2 moderate dependency advisories; no force upgrade applied.
 - PASS: `npm run build` completed.
 - PASS: One H1, one form, one map iframe.
+- PASS: Static export published to GitHub Pages branch `gh-pages`.
+- PASS: Live URL returned HTTP 200.
+- PASS: Live CSS and hero image returned HTTP 200.
+- PASS: Live Playwright check confirmed visible H1, one form and one map iframe.
+- PASS: Live screenshot: `qa-live-desktop.png`.
