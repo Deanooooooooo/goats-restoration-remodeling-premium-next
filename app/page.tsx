@@ -399,17 +399,13 @@ export default function Page() {
               <a href="#estimate"><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><ArrowUpRight size={19} />Request estimate</span></Button></a>
             </div>
           </motion.div>
-          <motion.div whileHover={{ y: -8, scale: 1.01 }} className="relative min-h-[500px] overflow-hidden rounded-2xl border border-white/12 bg-white/[0.055] shadow-[0_40px_120px_rgba(0,0,0,0.45)] backdrop-blur-xl lg:min-h-[640px]">
-            <Image src={assets("work-02.jpg")} alt="Finished shingle roof on a Connecticut home" fill priority sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover object-center" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/14 to-transparent" />
-            <div className="absolute left-5 top-5 rounded-xl border border-white/14 bg-black/46 px-4 py-3 text-sm font-black text-white backdrop-blur-xl">
-              <span className="mr-2 text-amber-300">Roofing</span> remodels, repairs and exterior work
-            </div>
-            <div className="absolute bottom-5 left-5 right-5 rounded-xl border border-white/12 bg-black/58 p-5 backdrop-blur-xl">
-              <p className="mb-2 text-xs font-black uppercase text-amber-300">Call with photos, address and scope</p>
-              <p className="m-0 text-2xl font-black leading-tight text-white">A clean first conversation for roof, remodel and restoration estimates.</p>
-            </div>
-          </motion.div>
+          <motion.aside
+            whileHover={{ y: -8, scale: 1.01 }}
+            className="relative rounded-3xl border border-white/12 bg-white/[0.055] p-3 shadow-[0_40px_120px_rgba(0,0,0,0.45)] backdrop-blur-xl"
+            aria-label="Request an estimate"
+          >
+            <EstimateForm />
+          </motion.aside>
         </div>
       </section>
 
@@ -521,7 +517,27 @@ export default function Page() {
 
       <section id="contact" className="relative px-4 py-24 sm:px-8">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.78fr_1.22fr]">
-          <EstimateForm />
+          <Card className="rounded-3xl border-white/10 bg-white/[0.075] text-white backdrop-blur-2xl">
+            <CardContent className="p-7 lg:p-9">
+              <p className="mb-3 text-xs font-black uppercase text-amber-300">Contact</p>
+              <h2 className="text-4xl font-black leading-none">Call, send photos, or check the Waterbury location.</h2>
+              <div className="mt-8 grid gap-4 text-sm font-bold text-white/68">
+                <a className="flex gap-3 rounded-xl border border-white/10 bg-black/24 p-4 transition hover:border-amber-300/40" href={phoneHref}>
+                  <Phone className="shrink-0 text-amber-300" size={19} /> {phone}
+                </a>
+                <a className="flex gap-3 rounded-xl border border-white/10 bg-black/24 p-4 transition hover:border-amber-300/40" href={facebookUrl}>
+                  <Facebook className="shrink-0 text-amber-300" size={19} /> Facebook profile
+                </a>
+                <a className="flex gap-3 rounded-xl border border-white/10 bg-black/24 p-4 transition hover:border-amber-300/40" href={mapsUrl}>
+                  <MapPin className="shrink-0 text-amber-300" size={19} /> Directions to Middle Street
+                </a>
+              </div>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a href={phoneHref}><Button asChild variant="brass" className="rounded-xl"><span><Phone size={18} />Call now</span></Button></a>
+                <a href={facebookUrl}><Button asChild variant="secondary" className="rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/16"><span><Facebook size={18} />Send photos</span></Button></a>
+              </div>
+            </CardContent>
+          </Card>
           <div className="grid overflow-hidden rounded-3xl border border-white/10 bg-[linear-gradient(135deg,#181c1e,#0b0d0f)] shadow-[0_40px_120px_rgba(0,0,0,0.45)]">
             <div className="p-7 lg:p-9">
               <p className="mb-3 text-xs font-black uppercase text-amber-300">Waterbury base</p>
